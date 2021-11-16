@@ -1,13 +1,13 @@
 Package: discountr
-Title: What the Package Does (One Line, Title Case)
+Title: Tools to Analyze Discounting Data
 Version: 0.0.0.9000
 Authors@R: 
-    person(given = "First",
-           family = "Last",
+    person(given = "Mackson",
+           family = "Ncube",
            role = c("aut", "cre"),
-           email = "first.last@example.com",
+           email = "macksonncube.stats@gmail.com",
            comment = c(ORCID = "YOUR-ORCID-ID"))
-Description: What the package does (one paragraph).
+Description: This package provides tools to analyze discounting data.  The package can be used for delay discounting, probability discounting, and cognitive effort discounting.
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
