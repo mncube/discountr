@@ -2,8 +2,12 @@
 df_test <- data.frame(delay = sample(1:100, 50, replace = FALSE),
                       value = sample(1:100, 50, replace = TRUE))
 
+#Normalize data in preparation for auc calculation
+df_test$delay <- df_test$delay/max(df_test$delay)
+df_test$value <- df_test$value/max(df_test$value)
+
 #Convert data frame to trapezoidal format
-df_test_2 <- traper(df_test, x = delay, y = value)
+df_test_2 <- traper(df_test, x = delay, y = value, rename = TRUE)
 
 #Initialize vectors to collect data from loop
  x_orig <- vector(length=length(df_test_2) - 1)
