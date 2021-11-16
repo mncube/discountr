@@ -1,0 +1,84 @@
+---
+output: github_document
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-",
+  out.width = "100%"
+)
+```
+
+# discountr
+
+<!-- badges: start -->
+<!-- badges: end -->
+
+The goal of discountr is to provide data analysis tools for discounting studies.
+
+## Installation
+
+You can install the development version from [GitHub](https://github.com/) with:
+
+``` r
+# install.packages("devtools")
+devtools::install_github("mncube/discountr")
+```
+## Example
+
+This is a basic example which shows you how to compute the area under the empirical discounting function using the trapezoid approximation as described
+in: 
+
+Myerson, J., Green, L., & Warusawitharana, M. (2001). Area under the curve as a measure of discounting. Journal of the experimental analysis of behavior, 76 2, 235-43 .
+```{r example}
+library(discountr)
+
+#Create data frame with successive delays and subjective values
+df_disc <- data.frame(delay = sample(1:100, 50, replace = FALSE),
+                      value = sample(1:100, 50, replace = TRUE))
+
+#Normalize data in preparation for the auc calculation
+#This will ensure that the auc is between 0 and 1
+df_disc$delay <- df_disc$delay/max(df_disc$delay)
+df_disc$value <- df_disc$value/max(df_disc$value)
+
+#Calculate the area under the curve
+output_disc <- trap_auc(df_disc, x = delay, y = value)
+
+#Get the total area under the curve (i.e., sum over trapezoids)
+output_disc$total
+
+#Get the data frame containing the area under the curve for each trapezoid
+output_disc$data
+```
+
+You can also convert the data frame to trapazoidal form and then explicitly provide
+the x_lead and y_lead values when computing the area under the empirical discounting function: 
+```{r}
+#Create data frame with successive delays and subjective values
+df_disc_2 <- data.frame(delay = sample(1:100, 50, replace = FALSE),
+                      value = sample(1:100, 50, replace = TRUE))
+
+#Normalize data in preparation for auc calculation
+df_disc_2$delay <- df_disc_2$delay/max(df_disc_2$delay)
+df_disc_2$value <- df_disc_2$value/max(df_disc_2$value)
+
+#Reformat data in preparation to compute the trapezoidal auc
+#The resulting data frame will have two new columns:
+#delay_lead and value_lead
+df_disc_2 <- traper(df_disc_2, x = delay, y = value, rename = TRUE)
+
+#Calculate the area under the curve explicitly defining x_lead and y_lead
+output_disc_2<- trap_auc(df_disc_2, x = delay, y = value,
+                          x_lead = delay_lead, y_lead = value_lead)
+
+#Get the total area under the curve (i.e., sum over trapezoids)
+output_disc_2$total
+
+#Get the data frame containing the area under the curve for each trapezoid
+output_disc_2$data
+```
