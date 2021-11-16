@@ -1,5 +1,7 @@
 #' Trapezoidal Area Under the Curve
 #'
+#' Citation: Myerson, J., Green, L., & Warusawitharana, M. (2001). Area under the curve as a measure of discounting. Journal of the experimental analysis of behavior, 76 2, 235-43 .
+#'
 #' @param df A data frame with one x and one y value on each line.  Optionally,
 #' leading x and leading y values can be on each line as well.
 #' @param x Column of data frame containing trial index (i.e., successive delays,

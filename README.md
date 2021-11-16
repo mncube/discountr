@@ -46,17 +46,17 @@ output_disc <- trap_auc(df_disc, x = delay, y = value)
 
 #Get the total area under the curve (i.e., sum over trapezoids)
 output_disc$total
-#> [1] 0.4738
+#> [1] 0.4964062
 
 #Get the data frame containing the area under the curve for each trapezoid
 head(output_disc$data)
-#>   delay value x_lead y_lead     auc
-#> 1  0.02  0.40   0.03   0.28 0.00340
-#> 2  0.03  0.28   0.06   0.44 0.01080
-#> 3  0.06  0.44   0.07   0.73 0.00585
-#> 4  0.07  0.73   0.08   0.77 0.00750
-#> 5  0.08  0.77   0.09   0.64 0.00705
-#> 6  0.09  0.64   0.10   0.47 0.00555
+#>   delay     value x_lead    y_lead         auc
+#> 1  0.01 0.5312500   0.02 0.7604167 0.006458333
+#> 2  0.02 0.7604167   0.03 0.6562500 0.007083333
+#> 3  0.03 0.6562500   0.04 0.5208333 0.005885417
+#> 4  0.04 0.5208333   0.05 0.6666667 0.005937500
+#> 5  0.05 0.6666667   0.08 0.3854167 0.015781250
+#> 6  0.08 0.3854167   0.09 0.8750000 0.006302083
 ```
 
 You can also convert the data frame to trapazoidal form and then
@@ -83,15 +83,39 @@ output_disc_2<- trap_auc(df_disc_2, x = delay, y = value,
 
 #Get the total area under the curve (i.e., sum over trapezoids)
 output_disc_2$total
-#> [1] 0.5416667
+#> [1] 0.4926
 
 #Get the data frame containing the area under the curve for each trapezoid
 head(output_disc_2$data)
-#>        delay value delay_lead value_lead         auc
-#> 1 0.01010101  0.58 0.02020202       0.95 0.007727273
-#> 2 0.02020202  0.95 0.03030303       0.78 0.008737374
-#> 3 0.03030303  0.78 0.07070707       0.53 0.026464646
-#> 4 0.07070707  0.53 0.08080808       0.29 0.004141414
-#> 5 0.08080808  0.29 0.16161616       0.71 0.040404040
-#> 6 0.16161616  0.71 0.17171717       0.95 0.008383838
+#>   delay value delay_lead value_lead     auc
+#> 1  0.02  0.87       0.05       0.96 0.02745
+#> 2  0.05  0.96       0.06       0.94 0.00950
+#> 3  0.06  0.94       0.07       0.21 0.00575
+#> 4  0.07  0.21       0.09       0.78 0.00990
+#> 5  0.09  0.78       0.10       0.17 0.00475
+#> 6  0.10  0.17       0.11       0.02 0.00095
+```
+
+The package also contains functions to compute the exponential
+discounting model (commonly used in economics) and the hyperbolic-like
+discounting model (commonly used in behavioral data analysis)
+
+``` r
+#Set up values for models.  In this example assume that rewards are in dollars and delays are in days
+A <- 100 #True amount of reward (in dollars for this example)
+b <- 1/10 #Discounting rate parameter
+X <- 2 #Delay (in days for his example)
+s <- 2 #Non-linear scaling factor
+
+#Exponential model (Standard economic account)
+discount_exp(A = A, b = b, X = X)
+#> [1] 81.87308
+
+#Hyperbolic-like model (Behavioral model)
+discount_hypl(A = A, b = b, X = X, s = s)
+#> [1] 69.44444
+
+#Hyperbolic model (Behavioral model, must use s = 1)
+discount_hypl(A = A, b = b, X = X, s = 1)
+#> [1] 83.33333
 ```

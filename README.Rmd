@@ -82,3 +82,23 @@ output_disc_2$total
 #Get the data frame containing the area under the curve for each trapezoid
 head(output_disc_2$data)
 ```
+
+The package also contains functions to compute the exponential discounting model (commonly used in economics) and the hyperbolic-like discounting model
+(commonly used in behavioral data analysis)
+```{r}
+#Set up values for models.  In this example assume that rewards are in dollars and delays are in days
+A <- 100 #True amount of reward (in dollars for this example)
+b <- 1/10 #Discounting rate parameter
+X <- 2 #Delay (in days for his example)
+s <- 2 #Non-linear scaling factor
+
+#Exponential model (Standard economic account)
+discount_exp(A = A, b = b, X = X)
+
+#Hyperbolic-like model (Behavioral model)
+discount_hypl(A = A, b = b, X = X, s = s)
+
+#Hyperbolic model (Behavioral model, must use s = 1)
+discount_hypl(A = A, b = b, X = X, s = 1)
+```
+

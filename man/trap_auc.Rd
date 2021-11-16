@@ -33,7 +33,7 @@ and a data frame (your_list$data) where each row contains the data to compute
 the area of one trapezoid and the area of one trapezoid.
 }
 \description{
-Trapezoidal Area Under the Curve
+Citation: Myerson, J., Green, L., & Warusawitharana, M. (2001). Area under the curve as a measure of discounting. Journal of the experimental analysis of behavior, 76 2, 235-43 .
 }
 \examples{
 #Create data frame with successive delays and subjective values
