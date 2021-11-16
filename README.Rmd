@@ -53,7 +53,7 @@ output_disc <- trap_auc(df_disc, x = delay, y = value)
 output_disc$total
 
 #Get the data frame containing the area under the curve for each trapezoid
-output_disc$data
+head(output_disc$data)
 ```
 
 You can also convert the data frame to trapazoidal form and then explicitly provide
@@ -80,5 +80,5 @@ output_disc_2<- trap_auc(df_disc_2, x = delay, y = value,
 output_disc_2$total
 
 #Get the data frame containing the area under the curve for each trapezoid
-output_disc_2$data
+head(output_disc_2$data)
 ```
