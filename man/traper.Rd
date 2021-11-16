@@ -4,15 +4,22 @@
 \alias{traper}
 \title{Traper}
 \usage{
-traper(df, x, y)
+traper(df, x, y, rename = FALSE)
 }
 \arguments{
 \item{df}{A data frame with one x and one y value on each line}
 
 \item{x}{Column of data frame containing trial index (i.e., successive delays,
-cognitive effort, probability).  traper function sorts the data by x.}
+cognitive effort, probability).  traper function sorts the data by x.  The
+user should normalize data to obtain canonical auc ranging from
+0 to 1.}
 
-\item{y}{Column of data frame containing subjective values (or scores)}
+\item{y}{Column of data frame containing subjective values (or scores).  The
+user should normalize data to obtain canonical auc ranging from
+0 to 1.}
+
+\item{rename}{Change name of x_lead and y_lead columns to {{x}}_lead and
+{{y}}_lead}
 }
 \value{
 Data frame where each row contains the data to compute the area of
@@ -32,5 +39,10 @@ Citation: Myerson, J., Green, L., & Warusawitharana, M. (2001). Area under the c
 df_test <- data.frame(delay = sample(1:100, 50, replace = FALSE),
                       value = sample(1:100, 50, replace = TRUE))
 
-df_test_2 <- traper(df_test, x = delay, y = value)
+#Normalize data in preparation for auc calculation
+df_test$delay <- df_test$delay/max(df_test$delay)
+df_test$value <- df_test$value/max(df_test$value)
+
+#Reformat data in preparation to compute the trapezoidal auc
+df_test_2 <- traper(df_test, x = delay, y = value, rename = TRUE)
 }
